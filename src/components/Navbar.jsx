@@ -1,12 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FiShoppingBag } from 'react-icons/fi'
 import { BsFillPencilFill } from 'react-icons/bs'
-import { login } from '../api/firebase'
+import { login, logout } from '../api/firebase'
 
 export default function Navbar() {
+  const [user, setUser] = useState({})
+  const handleLogin = () => {
+    setUser(login().then())
+  }
+
+  const handleLogout = () => {
+    logout().then(setUser)
+  }
   return (
-    // tailwind 적용 안됨 왜애럼 ?
     <header className='flex justify-between border-b p-3 border-gray-200'>
       <Link
         to='/'
@@ -21,7 +28,8 @@ export default function Navbar() {
         <Link to='/products/new' className='text-2xl'>
           <BsFillPencilFill />
         </Link>
-        <button onClick={() => login()}>Login</button>
+        {!user && <button onClick={handleLogin}>Login</button>}
+        {user && <button onClick={handleLogout}>Logout</button>}
       </nav>
     </header>
   )
