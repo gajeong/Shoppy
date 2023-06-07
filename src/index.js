@@ -39,7 +39,7 @@ const router = createBrowserRouter([
   },
 ])
 root.render(
-  <React.StrictMode>
+  <React.Fragment>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  </React.Fragment>
 )
