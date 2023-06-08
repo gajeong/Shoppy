@@ -1,5 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app'
+import { v4 as uuid } from 'uuid'
 import {
   getAuth,
   signInWithPopup,
@@ -7,7 +8,12 @@ import {
   signOut,
   onAuthStateChanged,
 } from 'firebase/auth'
-import { getDatabase, ref, child, get } from 'firebase/database'
+import {
+  getDatabase,
+  ref,
+  get,
+  set,
+} from 'firebase/database'
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -24,8 +30,9 @@ export async function login() {
   signInWithPopup(auth, provider)
     .then((result) => {
       // This gives you a Google Access Token. You can use it to access the Google API.
-      const credential = GoogleAuthProvider.credentialFromResult(result)
-      const token = credential.accessToken
+      const credential =
+        GoogleAuthProvider.credentialFromResult(result)
+
       // The signed-in user info.
       const user = result.user
     })
@@ -53,5 +60,15 @@ async function adminUser(user) {
         isAdmin,
       }
     }
+  })
+}
+
+export function addNewProduct(data) {
+  const id = uuid()
+  return set(ref(database, `products/${id}`), {
+    ...data,
+    id,
+    price: parseInt(data.price),
+    options: data.options.split(','),
   })
 }
