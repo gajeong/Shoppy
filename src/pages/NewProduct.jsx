@@ -56,73 +56,66 @@ export default function NewProduct() {
             />
           )}
         </div>
-        <dl className='border p-2'>
-          <input
-            onChange={handleChange}
-            type='file'
-            name='file'
-            accept='image/*'
-            className='block'
-            required
-          ></input>
-        </dl>
-        <dl className='border p-2'>
-          <input
-            onChange={handleChange}
-            type='text'
-            name='productNm'
-            value={
-              product.productNm ? product.productNm : ''
-            }
-            placeholder='상품명'
-            required
-            className='block w-full focus:outline-none'
-          />
-        </dl>
-        <dl className='border p-2'>
-          <input
-            onChange={handleChange}
-            type='text'
-            name='price'
-            value={product.price ? product.price : ''}
-            placeholder='가격'
-            required
-            className='block w-full focus:outline-none'
-          />
-        </dl>
-        <dl className='border p-2'>
-          <input
-            onChange={handleChange}
-            type='text'
-            name='options'
-            value={product.options ? product.options : ''}
-            placeholder='분류'
-            required
-            className='block w-full focus:outline-none'
-          />
-        </dl>
-        <dl className='border p-2'>
-          <input
-            onChange={handleChange}
-            type='text'
-            name='detail'
-            value={product.detail ? product.detail : ''}
-            placeholder='설명'
-            required
-            className='block w-full focus:outline-none'
-          />
-        </dl>
-        <dl className='border p-2'>
-          <input
-            onChange={handleChange}
-            type='text'
-            name='size'
-            value={product.size ? product.size : ''}
-            placeholder='사이즈 분류'
-            required
-            className='block w-full focus:outline-none'
-          />
-        </dl>
+
+        <input
+          onChange={handleChange}
+          type='file'
+          name='file'
+          accept='image/*'
+          className='block'
+          required
+        ></input>
+
+        <input
+          onChange={handleChange}
+          type='text'
+          name='productNm'
+          value={product.productNm ? product.productNm : ''}
+          placeholder='상품명'
+          required
+          className='block w-full focus:outline-none'
+        />
+
+        <input
+          onChange={handleChange}
+          type='text'
+          name='price'
+          value={product.price ? product.price : ''}
+          placeholder='가격'
+          required
+          className='block w-full focus:outline-none'
+        />
+
+        <input
+          onChange={handleChange}
+          type='text'
+          name='options'
+          value={product.options ? product.options : ''}
+          placeholder='분류'
+          required
+          className='block w-full focus:outline-none'
+        />
+
+        <input
+          onChange={handleChange}
+          type='text'
+          name='detail'
+          value={product.detail ? product.detail : ''}
+          placeholder='설명'
+          required
+          className='block w-full focus:outline-none'
+        />
+
+        <input
+          onChange={handleChange}
+          type='text'
+          name='size'
+          value={product.size ? product.size : ''}
+          placeholder='사이즈 분류'
+          required
+          className='block w-full focus:outline-none'
+        />
+
         <Button
           text={isUploading ? '업로드중' : '제품 등록하기'}
           disabled={isUploading}
