@@ -25,10 +25,12 @@ export default function NewProduct() {
     // firebase에 새로운 제품을 추가함
     uploadImage(file)
       .then((url) => {
-        setProduct((product) => ({ ...product, img: url }))
-        addNewProduct(product).then(() => {
+        addNewProduct({
+          ...product,
+          img: url,
+        }).then(() => {
           setSuccess('성공적으로 제품이 추가되었습니다.')
-          setFile(null)
+          setFile()
           setProduct({})
           setTimeout(() => {
             setSuccess(null)
