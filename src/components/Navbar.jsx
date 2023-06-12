@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import { FiShoppingBag } from 'react-icons/fi'
 import { BsFillPencilFill } from 'react-icons/bs'
-import { login, logout, onUserStateChange } from '../api/firebase'
+
 import User from './User'
 import Button from './ui/Button'
 import { useAuthContext } from './context/AuthContext'
+import CartStatus from './ui/CartStatus'
 
 export default function Navbar() {
   const { user, login, logout } = useAuthContext()
@@ -20,7 +21,11 @@ export default function Navbar() {
       </Link>
       <nav className='flex items-center gap-4 font-semibold'>
         <Link to='/products'>상품</Link>
-        {user && <Link to='/carts'>장바구니</Link>}
+        {user && (
+          <Link to='/carts'>
+            <CartStatus />
+          </Link>
+        )}
         {user && user.isAdmin && (
           <Link to='/products/new' className='text-2xl'>
             <BsFillPencilFill />
@@ -28,7 +33,9 @@ export default function Navbar() {
         )}
         {user && <User user={user} />}
         {!user && <Button text='로그인' onClick={login} />}
-        {user && <Button text='로그아웃' onClick={logout} />}
+        {user && (
+          <Button text='로그아웃' onClick={logout} />
+        )}
       </nav>
     </header>
   )
