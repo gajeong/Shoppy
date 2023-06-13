@@ -8,6 +8,9 @@ import {
   addOrUpdateToCart,
   removeFromCart,
 } from '../api/firebase'
+
+const ICON_CLASS =
+  'transition-all cursor-pointer hover:text-brand hover:scale-105'
 export default function CartItem({
   product,
   product: { id, img, productNm, price, quantity, option },
@@ -29,20 +32,33 @@ export default function CartItem({
   const handleDelete = () => removeFromCart(uid, id)
 
   return (
-    <li className='flex'>
+    <li className='flex justify-between mmy-2 items-center'>
       <img
-        className='w-12 h-12'
+        className='w-24  md:w-48 rounded-sm '
         src={img}
         alt={productNm}
       />
-      <div className='flex justify-around'>
-        <p>{productNm}</p>
-        <p>{option}ml</p>
-        <div className='flex'>
-          <AiOutlineMinusSquare onClick={handleMinus} />
+      <div className='flex justify-between flex-1 ml-4'>
+        <div className='basis-3/5'>
+          <p className='text-lg'>{productNm}</p>
+          <p className='text-xl font-bold text-brand'>
+            {option}ml
+          </p>
+        </div>
+        <div className='flex text-2xl items-center'>
+          <AiOutlineMinusSquare
+            className={ICON_CLASS}
+            onClick={handleMinus}
+          />
           <span>{quantity}</span>
-          <AiOutlinePlusSquare onClick={handlePlus} />
-          <RiDeleteBin3Fill onClick={handleDelete} />
+          <AiOutlinePlusSquare
+            className={ICON_CLASS}
+            onClick={handlePlus}
+          />
+          <RiDeleteBin3Fill
+            className={ICON_CLASS}
+            onClick={handleDelete}
+          />
         </div>
       </div>
     </li>
