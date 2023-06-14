@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import Button from '../components/ui/Button'
-import { useAuthContext } from '../components/context/AuthContext'
-import { addOrUpdateToCart } from '../api/firebase'
+
+import useCart from '../hooks/useCart'
 
 export default function ProductDetail() {
   const {
@@ -18,8 +18,8 @@ export default function ProductDetail() {
       },
     },
   } = useLocation()
-
-  const { user } = useAuthContext()
+  const [success, setSuccess] = useState()
+  const { addOrUpdateItem } = useCart()
 
   const [selected, setSelected] = useState(size && size[0])
   const handleSelect = (e) => setSelected(e.target.value)
@@ -32,7 +32,12 @@ export default function ProductDetail() {
       option: selected,
       quantity: 1,
     }
-    addOrUpdateToCart(user.uid, product)
+    addOrUpdateItem.mutate(product, {
+      onSuccess: () => {
+        setSuccess('장바구니 추가')
+        setTimeout(() => setSuccess(null), 3000)
+      },
+    })
   }
   return (
     <section>
@@ -71,6 +76,7 @@ export default function ProductDetail() {
             </select>
           </div>
           <Button text='장바구니' onClick={handleClick} />
+          {success && <p className='my-2'>{success} </p>}
         </div>
       </section>
     </section>

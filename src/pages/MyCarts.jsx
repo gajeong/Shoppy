@@ -1,18 +1,17 @@
 import React from 'react'
 import { useAuthContext } from '../components/context/AuthContext'
-import { useQuery } from '@tanstack/react-query'
-import { getCart } from '../api/firebase'
+
 import CartItem from '../components/CartItem'
 import PriceCard from '../components/PriceCard'
 import { BsFillPlusCircleFill } from 'react-icons/bs'
 import { FaEquals } from 'react-icons/fa'
 import Button from '../components/ui/Button'
+import useCart from '../hooks/useCart'
 export default function MyCarts() {
   const { user } = useAuthContext()
-  const { isLoading, data: products } = useQuery(
-    ['carts'],
-    () => getCart(user.uid)
-  )
+  const {
+    cartQuery: { isLoading, data: products },
+  } = useCart()
   if (isLoading) return <p>loading,,,</p>
   const hasProducts = products && products.length > 0
   const totalPrice =
@@ -24,6 +23,7 @@ export default function MyCarts() {
     )
 
   const SHIPPING = 3000
+
   return (
     <section className='p-8 flex flex-col'>
       <p className='text-2xl text-center font-bold pb-4 border-b border-gray-300'>
